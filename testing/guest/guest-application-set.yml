@@ -17,9 +17,9 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/argoproj/argocd-example-apps.git
+        repoURL: https://github.com/yashjain10038/ArgoCD-Complete-Master-Course.git
         targetRevision: HEAD
-        path: sock-shop
+        path: 0-Demo_Files/Nginx_Deployment
       destination:
         server: '{{.url}}'
         namespace: default
