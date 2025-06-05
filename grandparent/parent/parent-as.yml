@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: parent-as
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - list:
+      elements:
+      - cluster: in-cluster
+        url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: '{{.cluster}}-parent-as'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/yashjain10038/ArgoCD-Complete-Master-Course.git
+        targetRevision: HEAD
+        path: parent/child
+      destination:
+        server: '{{.url}}'
+        namespace: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
